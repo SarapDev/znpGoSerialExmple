@@ -1,10 +1,10 @@
 package helpers
 
 // create GSP frame
-func makeCommand(command, payload []byte) []byte {
-	gsp := []byte{0xFE}
+func makeCommand(command, payload []uint16) []uint16 {
+	gsp := []uint16{0xFE}
 
-	var checksum, length byte
+	var checksum, length uint16
 
 	for range payload {
 		length++

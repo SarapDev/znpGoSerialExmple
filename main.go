@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	c := &serial.Config{Name: "/dev/tty.usbserial-140", Baud: 115200}
+	c := &serial.Config{Name: "/dev/tty.usbserial-21320", Baud: 115200}
         s, err := serial.OpenPort(c)
         if err != nil {
 		helpers.PrintError("Error with opening port", err)
@@ -15,7 +15,7 @@ func main() {
        	
 	dongle := helpers.NewDongle(s)
 
-	dongle.SysPing()
+	dongle.GetDeviceInfo()
 
 	dongle.SysReset()
 
@@ -23,6 +23,8 @@ func main() {
 
 	dongle.SysReset()
 
-	dongle.SysOsalNvRead()
+	dongle.EndpointRegister()
+	
+	dongle.FindingAndBinding()
 }
 

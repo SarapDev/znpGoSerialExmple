@@ -1,16 +1,26 @@
 package helpers
 
 import (
-	"strings"
-	"log"
 	"encoding/hex"
+	"log"
+	"strings"
 )
 
 // print hex bytes as string separeted each 2 bytes
-func PrintHex(tag string,hexSlice []byte) {
-	var final string	
-	hexString := hex.EncodeToString(hexSlice)
+func PrintHexFromUint(tag string,hexSlice []uint16) {
+	hexSliceByte := []byte{}
 
+	for _, item := range hexSlice {
+		hexSliceByte = append(hexSliceByte, byte(item))
+	}
+
+	PrintHex(tag, hexSliceByte)
+}
+
+func PrintHex(tag string,hexSlice []byte) {
+	var final string
+
+	hexString := hex.EncodeToString(hexSlice)
 	for k, char := range hexString {
 		if k % 2 == 0 {
 			final += " 0x"
@@ -19,7 +29,7 @@ func PrintHex(tag string,hexSlice []byte) {
 		final += strings.ToUpper(string(char))
 	}
 
-	log.Printf("%s: %s", tag, strings.Trim(final, " "))
+	log.Println(tag, final)
 }
 
 func PrintError(customMessage string, err error) {
